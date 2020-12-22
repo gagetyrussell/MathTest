@@ -9,7 +9,7 @@
 
 <H2>Tests</H2>
 <ul>
-    <li>pipenv install</li>
+    <li>pipenv install --dev</li>
     <li>pipenv shell</li>
     <li>coverage report -m MathTest.py helpers\RandomNonPrime.py helpers\DivisorGenerator.py</li>
 </ul>
