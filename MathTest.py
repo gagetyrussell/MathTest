@@ -4,7 +4,6 @@ Created on Mon Dec 21 19:17:36 2020
 
 @author: Owner
 """
-from __future__ import print_function, unicode_literals
 
 # the code used to get a random non-prime number is stollen directly from StackExchange
 # https://stackoverflow.com/questions/38416864/generating-a-random-non-prime-number-in-python
