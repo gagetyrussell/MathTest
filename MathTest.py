@@ -58,6 +58,8 @@ class MathTest():
         operator_response = prompt(operator_question, style=self.style)
         self.selected_operator = operator_response['operator_selection']
         
+        return operator_response['operator_selection']
+        
     def get_numbers(self):
         if self.selected_operator == 'division':
             # we cannot have a prime number
@@ -89,12 +91,15 @@ class MathTest():
         answer = eval(question_string)
         
         question_dict = dict(question_string=question_string, answer=answer)
+        
         return question_dict
             
     def generate_questions(self):
 
         for i in range(self.test_length):
             self.questions.append(self.generate_question())
+            
+        return self.questions
             
     def ask_questions(self):
         
