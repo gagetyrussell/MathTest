@@ -21,3 +21,8 @@
     <li>pipenv shell</li>
     <li>pyinstaller MathTest.py</li>
 </ul>
+
+<H2>Archiving</H2>
+<ul>
+    <li>git archive --format zip HEAD > MathTest.1.0.0.zip</li>
+</ul>
