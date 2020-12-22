@@ -231,9 +231,9 @@ class MathTest():
 
         """
         if self.score >= 70:
-            output = f"\nCongratulations!\nYou scored {self.score}%!\n"
+            output = f"\nCongratulations!\nYou scored {round(self.score, 1)}%!\n"
         else:
-            output = f"\nBad news!\nYou scored {self.score}% ... better luck next time.\n"
+            output = f"\nBad news!\nYou scored {round(self.score, 1)}% ... better luck next time.\n"
         
         print(output)
         
@@ -283,7 +283,7 @@ class MathTest():
 if __name__ == "__main__": 
     
     operators = ['addition', 'multiplication', 'subtraction', 'division']
-    math_test = MathTest(operators=operators, test_length=2)    
+    math_test = MathTest(operators=operators, test_length=10)    
     
     while math_test.selected_proceed != 'quit':
         
