@@ -30,6 +30,7 @@ class test_MathTest(unittest.TestCase):
         self.assertEqual(self.math_test.test_length, self.setup_test_length)
         
     def test_non_supported_operators_initialization(self):  
+        
         operators = ['I am unsupported']
         
         with self.assertRaises(Exception) as context:
@@ -111,6 +112,7 @@ class test_MathTest(unittest.TestCase):
         self.assertTrue(check) 
         
     def test_addition_answers(self):
+        
         operator = 'addition'
         self.math_test.selected_operator = operator
         self.assertEqual(self.math_test.selected_operator, operator) 
@@ -122,6 +124,7 @@ class test_MathTest(unittest.TestCase):
         self.assertTrue(check) 
         
     def test_subtraction_answers(self):
+        
         operator = 'subtraction'
         self.math_test.selected_operator = operator
         self.assertEqual(self.math_test.selected_operator, operator) 
@@ -133,6 +136,7 @@ class test_MathTest(unittest.TestCase):
         self.assertTrue(check) 
         
     def test_multiplication_answers(self):
+        
         operator = 'multiplication'
         self.math_test.selected_operator = operator
         self.assertEqual(self.math_test.selected_operator, operator) 
@@ -144,6 +148,7 @@ class test_MathTest(unittest.TestCase):
         self.assertTrue(check) 
         
     def test_division_answers(self):
+        
         operator = 'division'
         self.math_test.selected_operator = operator
         self.assertEqual(self.math_test.selected_operator, operator) 
@@ -155,32 +160,5 @@ class test_MathTest(unittest.TestCase):
         self.assertTrue(check) 
         
         
- 
-        
-        
-
-        
-        
-         
- 
-    # def test_stop(self):
- 
-    #     self.car.speed = 5
- 
-    #     self.car.stop()
- 
-    #     # Verify the speed is 0 after stopping
- 
-    #     self.assertEqual(0, self.car.speed)
- 
-         
- 
-    #     # Verify it is Ok to stop again if the car is already stopped
- 
-    #     self.car.stop()
- 
-    #     self.assertEqual(0, self.car.speed)
-        
 if __name__ == '__main__':
-    print('here')
     unittest.main()
