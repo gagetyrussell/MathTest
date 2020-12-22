@@ -11,7 +11,6 @@ Created on Mon Dec 21 19:17:36 2020
 # https://jeremykun.com/2013/06/16/miller-rabin-primality-test/
 from helpers import get_random_nonprime, divisor_generator
 
-#from prompt_toolkit.validation import Validator, ValidationError
 from PyInquirer import style_from_dict, Token, prompt, Separator
 from pprint import pprint
 from random import randint
@@ -19,6 +18,23 @@ from random import randint
 class MathTest():
         
     def __init__(self, operators: list, test_length=10) -> str:
+        """
+        A MathTest CLI Program
+
+        Parameters
+        ----------
+        operators : list
+            A list of arithmetic operators.
+            supports: addition, multiplication, subtraction, division
+        test_length : int, optional
+            The number of questions to be asked. The default is 10.
+
+        Raises
+        ------
+        ValueError
+            If an unsupported operator is used.
+
+        """
         
         self.supported_operators = {'addition': '+',
                                     'multiplication': '*',
@@ -47,6 +63,15 @@ class MathTest():
         self.selected_proceed = None
         
     def prompt_operator(self):
+        """
+        Asks the user what they would like to be tested on
+
+        Returns
+        -------
+        str
+            The selected operator.
+
+        """
         
         operator_question = {
             'type': 'list',
@@ -61,9 +86,27 @@ class MathTest():
         return operator_response['operator_selection']
         
     def get_numbers(self):
+        """
+        Generate random numbers for questions based on operator:
+            The criteria is:
+                answer is a positive integer
+                
+                for division, this means we can use prime numbers
+                for subtraction this means that second_number < first_number
+
+        Raises
+        ------
+        ValueError
+            If an unsupported operator is used. This should never be reached as it is caught in init.
+
+        Returns
+        -------
+        numbers : tuple
+            the first and second number to be used in the question. Both TYPE int.
+        """
         if self.selected_operator == 'division':
             # we cannot have a prime number
-            first_number = get_random_nonprime(0,100)
+            first_number = get_random_nonprime(2,100)
             second_number_possibilities = [i for i in divisor_generator(first_number)]
             second_number_index = randint(0, len(second_number_possibilities)-1)
             second_number = second_number_possibilities[second_number_index]
@@ -81,11 +124,21 @@ class MathTest():
             second_number = randint(0, first_number)
             
         else:
+            # this line should never be hit. It is a fail-safe.
             raise ValueError('Unsupported Operators')
             
         return (first_number, second_number)
     
     def generate_question(self):
+        """
+        Generate the question object. The question object is a dict with a question_string and an answer.
+
+        Returns
+        -------
+        question_dict : dict
+            A dict with the question string and evaluated answer.
+
+        """
         number = self.get_numbers()
         question_string = f"{number[0]} {self.supported_operators[self.selected_operator]} {number[1]}"
         answer = eval(question_string)
@@ -95,6 +148,15 @@ class MathTest():
         return question_dict
             
     def generate_questions(self):
+        """
+        Generate list of questions to be tested
+
+        Returns
+        -------
+        list
+            The question objects to be used for testing.
+
+        """
 
         for i in range(self.test_length):
             self.questions.append(self.generate_question())
@@ -102,6 +164,19 @@ class MathTest():
         return self.questions
             
     def ask_questions(self):
+        """
+        Prompt the user to answer the questions.
+
+        Raises
+        ------
+        ValueError
+            If no questions have been generated.
+
+        Returns
+        -------
+        None.
+
+        """
         
         if not self.questions:
             raise ValueError('No questions have been generated')
@@ -125,6 +200,19 @@ class MathTest():
             self.answers.append(answer_dict)
             
     def calculate_score(self):
+        """
+        Calculate the test score.
+
+        Raises
+        ------
+        ValueError
+            If questions have not been answered.
+
+        Returns
+        -------
+        None.
+
+        """
         
         if not self.answers:
             raise ValueError('No answers have been generated')
@@ -134,6 +222,14 @@ class MathTest():
         self.score = (1 - incorrect_answers / len(self.answers)) * 100   
 
     def display_output(self):
+        """
+        Display the users score and pass/fail
+
+        Returns
+        -------
+        None.
+
+        """
         if self.score >= 70:
             output = f"\nCongratulations!\nYou scored {self.score}%!\n"
         else:
@@ -142,12 +238,36 @@ class MathTest():
         print(output)
         
     def reset_answers(self):
+        """
+        Reset answers if user wants to retry the same test.
+
+        Returns
+        -------
+        None.
+
+        """
         self.answers = []
         
     def reset_questions(self):
+        """
+        Reset questions if user wants a new test.
+
+        Returns
+        -------
+        None.
+
+        """
         self.questions = []
         
     def prompt_proceed(self):
+        """
+        Ask the user how they would like to proceed after completing a test.
+
+        Returns
+        -------
+        None.
+
+        """
                 
         proceed_question = {
             'type': 'list',

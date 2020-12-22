@@ -29,6 +29,14 @@ class test_MathTest(unittest.TestCase):
         self.assertEqual(self.math_test.operators, self.setup_operators)
         self.assertEqual(self.math_test.test_length, self.setup_test_length)
         
+    def test_non_supported_operators_initialization(self):  
+        operators = ['I am unsupported']
+        
+        with self.assertRaises(Exception) as context:
+            math_test = MathTest(operators=operators, test_length=10) 
+            self.assertTrue('Unsupported Operators' in context.exception)        
+        
+        
     def test_prompt_operator(self):
         
         response = self.math_test.prompt_operator()  
@@ -101,6 +109,52 @@ class test_MathTest(unittest.TestCase):
         check = all([self.division_regex.fullmatch(q['question_string']) for q in questions])
         
         self.assertTrue(check) 
+        
+    def test_addition_answers(self):
+        operator = 'addition'
+        self.math_test.selected_operator = operator
+        self.assertEqual(self.math_test.selected_operator, operator) 
+        
+        questions = self.math_test.generate_questions()
+        
+        check = all([eval(q['question_string']) == q['answer'] for q in questions])
+        
+        self.assertTrue(check) 
+        
+    def test_subtraction_answers(self):
+        operator = 'subtraction'
+        self.math_test.selected_operator = operator
+        self.assertEqual(self.math_test.selected_operator, operator) 
+        
+        questions = self.math_test.generate_questions()
+        
+        check = all([eval(q['question_string']) == q['answer'] for q in questions])
+        
+        self.assertTrue(check) 
+        
+    def test_multiplication_answers(self):
+        operator = 'multiplication'
+        self.math_test.selected_operator = operator
+        self.assertEqual(self.math_test.selected_operator, operator) 
+        
+        questions = self.math_test.generate_questions()
+        
+        check = all([eval(q['question_string']) == q['answer'] for q in questions])
+        
+        self.assertTrue(check) 
+        
+    def test_division_answers(self):
+        operator = 'division'
+        self.math_test.selected_operator = operator
+        self.assertEqual(self.math_test.selected_operator, operator) 
+        
+        questions = self.math_test.generate_questions()
+        
+        check = all([eval(q['question_string']) == q['answer'] for q in questions])
+        
+        self.assertTrue(check) 
+        
+        
  
         
         
